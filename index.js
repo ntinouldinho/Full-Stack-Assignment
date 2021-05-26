@@ -75,4 +75,23 @@ app.get('/list/', async function(req, res) {
 })
 
 
+app.get('/edit/:id', async function(req, res) {
+
+    const book = await favourites.findById(req.params.id.toString());
+    
+    res.render('book-edit.handlebars',
+    {
+        title: book.title,
+        author:book.author
+    })
+
+})
+
+app.post('/edit/:id', async function(req, res) {
+
+    console.log(req.params.id)
+
+})
+
+
 app.listen(port, () => console.log(`🚀🚀🚀🚀🚀server is running on port 8080🚀🚀🚀`));

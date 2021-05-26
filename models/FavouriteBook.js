@@ -44,13 +44,15 @@ async function findAll() {
 }
 
 
-function findById(id) {
+async function findById(id) {
     var docRef = firestore.collection('favourites').doc(id.toString());
 
-    docRef.get().then((doc) => {
+    var data = null;
+
+    await docRef.get().then((doc) => {
         if (doc.exists) {
             console.log("Document data:", doc.data());
-            return doc.data();
+            data= doc.data();
         } else {
             throw Error;
         }
@@ -58,6 +60,8 @@ function findById(id) {
         console.log("Error getting document:", error);
         return 0;
     });
+
+    return data;
 }
 
 function deleteById(id) {

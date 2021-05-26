@@ -26,7 +26,8 @@ async function create(id, title, author) {
             book.set({
                 id: id,
                 title: title,
-                author: author
+                author: author,
+                review:''
             })
            result = 1;
         }
@@ -68,6 +69,14 @@ function deleteById(id) {
     firestore.collection('favourites').doc(id.toString()).delete();
 }
 
+function update(id,title,author,review){
+    firestore.collection('favourites').doc(id.toString()).update({
+        title:title,
+        author:author,
+        review: review
+    })
+}
+
 function init() {
 
 
@@ -89,5 +98,6 @@ module.exports = {
     "create": create,
     "findAll": findAll,
     "findById": findById,
-    "deleteById": deleteById
+    "deleteById": deleteById,
+    "update": update
 }

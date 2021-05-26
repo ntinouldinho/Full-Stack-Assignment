@@ -1,2 +1,21 @@
-<input type="text" value={{title}}>
-<input type="text" value={{author}}>
+
+<form method="post" id="editBook" onsubmit="handleSubmit(event,{{id}})">
+
+    <fieldset>
+        <legend>Account</legend>
+        <label for="book-title">Title:</label><br />
+        <input type="text" id="book-title" name="title" minlength="2" required placeholder="Title" value={{title}}>
+        <br />
+
+
+        <label for="book-author">Author:</label><br />
+        <input type="text" id="book-author" name="author" minlength="2" required placeholder="Author" value={{author}}>
+        <br />
+
+        <textarea name="review" form="editBook">{{review}}</textarea>
+
+    </fieldset>
+
+
+    <input type="submit">
+</form>

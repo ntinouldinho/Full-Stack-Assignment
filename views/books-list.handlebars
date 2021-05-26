@@ -1,13 +1,23 @@
 <h1>{{title}}</h1>
 
-{{#each books}}
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
 
-<div>
-    <h1 style="color:red;">{{title}}</h1>
-    <h2>Author: {{author}}</h2>
-    
-    <br>
 
-</div>
+    {{#each books}}
 
-{{/each}}
+    <tr>
+        <td style="color:red;">{{title}}</td>
+        <td>Author: {{author}}</td>
+        <td><a href="./edit/{{id}}">Edit</a></td>
+    </tr>
+
+    {{/each}}
+
+</table>

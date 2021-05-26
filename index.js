@@ -31,10 +31,6 @@ app.get('/', function(req, res) {
         console.log(err)
     })
 
-    // res.render('example.handlebars',
-    // {
-    //     title: "okkkk"
-    // })
 })
 
 app.delete('/favourites/', async function(req, res) {
@@ -49,18 +45,6 @@ app.post('/favourites/create', async function(req, res) {
     const create = await favourites.create(req.body.id,req.body.title,req.body.author)
     
     res.status(201).send(create.toString());
-})
-
-app.get('/favourites/', async function(req, res) {
-    // let favouriteBooks = await favourites.findAll();
-
-    let create = favourites.findById(26);
-    console.log(create + "dd")
-
-    // res.render('example.handlebars',
-    // {
-    //     title: "okkkk"
-    // })
 })
 
 
@@ -79,19 +63,17 @@ app.get('/edit/:id', async function(req, res) {
 
     const book = await favourites.findById(req.params.id.toString());
     
-    res.render('book-edit.handlebars',
-    {
-        title: book.title,
-        author:book.author
-    })
+    res.render('book-edit.handlebars',book)
 
 })
 
-app.post('/edit/:id', async function(req, res) {
+app.post('/edit/', async function(req, res) {
 
-    console.log(req.params.id)
-
-})
+    console.log(req.body.id)
+    const updated = await favourites.update(req.body.id,req.body.title,req.body.author,req.body.review)
+    
+    res.status(201).send("ok");
+})  
 
 
 app.listen(port, () => console.log(`🚀🚀🚀🚀🚀server is running on port 8080🚀🚀🚀`));

@@ -18,10 +18,6 @@ app.use(express.json())
 
 
 
-
-
-
-
 app.get('/', function(req, res) {
     let options = {
         root: path.join(__dirname, 'public')
@@ -72,11 +68,10 @@ app.get('/edit/:id', async function(req, res) {
 
 app.post('/edit/', async function(req, res) {
 
-    console.log(req.body.id)
     const updated = await favourites.update(req.body.id,req.body.title,req.body.author,req.body.review)
-    
-    res.status(200).send("ok");
+
+    res.status(updated).send();
 })  
 
 
-app.listen(port, () => console.log(`🚀🚀🚀🚀🚀server is running on port 8080🚀🚀🚀`));
+app.listen(port, () => console.log(`🚀🚀🚀🚀🚀server is running on port ${port} 🚀🚀🚀`));

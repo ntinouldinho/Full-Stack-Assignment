@@ -95,18 +95,18 @@ function addFavourite(el, id) {
                 }
 
                 fetch("/favourites/create", init)
-                    .then(response => response.text())
-                    .then(response => {
-                        switch (response) {
-                            case '0':
+                    .then(response => response.status)
+                    .then(status => {
+                        switch (status) {
+                            case 500:
                                 alert("an error occurred")
                                 break;
-                            case '1':
+                            case 201:
                                 alert("book successfuly added to favourites")
                                 el.classList.toggle("deleteBook");
                                 el.innerHTML = "Remove"
                                 break;
-                            case '2':
+                            case 409:
                                 alert("book is already in favourites")
                                 el.classList.toggle("deleteBook");
                                 el.innerHTML = "Remove"
@@ -133,10 +133,10 @@ function addFavourite(el, id) {
         }
 
         fetch("/favourites/", init)
-            .then(response => response.text())
-            .then(response => {
-                switch (response) {
-                    case 'ok':
+            .then(response => response.status)
+            .then(status => {
+                switch (status) {
+                    case 200:
                         alert("deleted")
                         el.classList.toggle("deleteBook");
                         el.innerHTML = "Favourite"

@@ -62,10 +62,10 @@ function deleteBook(id){
         }
 
         fetch("/favourites/", init)
-            .then(response => response.text())
-            .then(response => {
-                switch (response) {
-                    case 'ok':
+            .then(response => response.status)
+            .then(status => {
+                switch (status) {
+                    case 200:
                         alert("deleted")
                         window.location.reload();
                         break;

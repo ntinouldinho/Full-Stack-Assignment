@@ -1,21 +1,32 @@
+<div id="wrapper">
+    <img id="isbn_image" src="https://reststop.randomhouse.com/resources/titles/{{isbn}}" height="400" width="250">
 
-<form method="post" id="editBook" onsubmit="handleSubmit(event,{{id}})">
-
-    <fieldset>
-        <legend>Account</legend>
-        <label for="book-title">Title:</label><br />
-        <input type="text" id="book-title" name="title" minlength="2" required placeholder="Title" value={{title}}>
-        <br />
+    <form method="post" id="editBook" onsubmit="handleSubmit(event,{{id}})">
 
 
-        <label for="book-author">Author:</label><br />
-        <input type="text" id="book-author" name="author" minlength="2" required placeholder="Author" value={{author}}>
-        <br />
+        <fieldset>
+            <legend>{{title}}</legend>
+            <label for="book-title">Title:</label><br />
+            <input type="text" id="book-title" name="title" minlength="2" size="{{title.length}}" required
+                placeholder="Title" value="{{title}}">
+            <br />
+            <br />
 
-        <textarea name="review" form="editBook">{{review}}</textarea>
+            <label for="book-author">Author:</label><br />
+            <input type="text" id="book-author" name="author" minlength="2" size="{{author.length}}" required
+                placeholder="Author" value="{{author}}">
+            <br />
+            <br />
 
-    </fieldset>
+            <label for="review">Review:</label><br />
+            <textarea name="review" form="editBook" rows="10" cols="50">{{review}}</textarea>
+
+        </fieldset>
 
 
-    <input type="submit">
-</form>
+
+
+        <input type="submit">
+    </form>
+
+</div>

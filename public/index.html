@@ -5,18 +5,56 @@
     <meta charset="UTF-8">
 
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="static/CSS/style.css">
 
 </head>
 
 <body>
 
-    <h1>Hello World</h1>>
+    <header>
+        <h2><a href="/">Search</a></h2>
+        <h1>Penguin Books List</h1>
+        <h2><a href="/list">Favourites List</a></h2>
+    </header>
 
-    <input type="text" id="book-search"  placeholder="Search for books, authors"> 
-    <button type="button" id="search-button">Search!</button>
 
-    <div id="search-results"></div>
+
+    <main>
+        <input type="text" id="book-search" placeholder="Search for books, authors">
+        <button type="button" id="search-button">Search!</button>
+
+
+        <div id="search-results"></div>
+    </main>
+
+
+    <footer>
+        <div id="left-footer">
+            <h2>
+                Privacy Policy
+            </h2>
+        </div>
+        <div id="middle-footer">
+            <h2>About Me:</h2>
+            <h3>
+                For more information about Penguin Books please visit this <a
+                    href="https://www.penguinrandomhouse.com/">site</a>
+            </h3>
+        </div>
+        <div id="right-footer">
+            <h2>PenguinRandomHouse's links:</h2> <br>
+            <div class="media">
+                <a href="https://www.instagram.com/penguinrandomhouse/?hl=el" target="_blank" rel="noreferrer">
+                    <img src="https://image.similarpng.com/very-thumbnail/2020/05/3D-Instagram-logo-PNG.png"
+                        alt="Instagram Logo" width="50" height="50">
+                </a>
+                <a href="https://www.facebook.com/PenguinRandomHouse/" target="_blank" rel="noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/120px-Facebook_f_logo_%282019%29.svg.png"
+                        alt="Facebook Logo" width="50" height="50">
+                </a>
+            </div>
+        </div>
+    </footer>
 
 
 </body>

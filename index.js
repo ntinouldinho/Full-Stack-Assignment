@@ -33,26 +33,17 @@ app.get('/', function(req, res) {
 
 })
 
-app.get('/favourites/', async function(req, res) {
-
-    const deleteBook = await favourites.findAll();
-    
-    res.status(201).send(deleteBook);
-})
-
-
 app.delete('/favourites/', async function(req, res) {
-
     const deleteBook = await favourites.deleteById(req.body.id)
-    
-    res.status(201).send("ok");
+
+    res.status(deleteBook).send();
 })
 
 app.post('/favourites/create', async function(req, res) {
     
     const create = await favourites.create(req.body.id,req.body.title,req.body.author,req.body.isbn)
-    
-    res.status(201).send(create.toString());
+
+    res.status(create).send();
 })
 
 
@@ -71,6 +62,10 @@ app.get('/edit/:id', async function(req, res) {
 
     const book = await favourites.findById(req.params.id.toString());
     
+    if(book.id==-1){
+        res.status(409).send('Id Not Found')
+        return
+    }
     res.render('book-edit.handlebars',book)
 
 })
@@ -80,7 +75,7 @@ app.post('/edit/', async function(req, res) {
     console.log(req.body.id)
     const updated = await favourites.update(req.body.id,req.body.title,req.body.author,req.body.review)
     
-    res.status(201).send("ok");
+    res.status(200).send("ok");
 })  
 
 

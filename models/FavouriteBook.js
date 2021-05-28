@@ -7,26 +7,26 @@ var firestore = null;
 
 init();
 
-async function create(id, title, author,isbn) {
+async function create(id, title, author, isbn) {
     var result = 0;
     var book = firestore.collection('favourites').doc(id.toString());
 
     await book.get().then((doc) => {
         if (doc.exists) {
-            result = 2;
+            result = 409;
         } else {
             book.set({
                 id: id,
                 title: title,
                 author: author,
-                isbn:isbn,
-                review:''
+                isbn: isbn,
+                review: ''
             })
-           result = 1;
+            result = 201;
         }
     }).catch((error) => {
         console.log("Error getting document:", error);
-        return 0;
+        result = 500;
     });
 
     return result;
@@ -46,28 +46,43 @@ async function findById(id) {
     await docRef.get().then((doc) => {
         if (doc.exists) {
             console.log("Document data:", doc.data());
-            data= doc.data();
+            data = doc.data();
         } else {
             throw Error;
         }
     }).catch((error) => {
-        console.log("Error getting document:", error);
-        return 0;
+        data = { id: -1 }
     });
 
     return data;
 }
 
-function deleteById(id) {
-    firestore.collection('favourites').doc(id.toString()).delete();
+async function deleteById(id) {
+    let result = 200;
+
+    try {
+        await firestore.collection('favourites').doc(id.toString()).delete();
+    } catch (error) {
+        result = 409;
+    }
+
+    return result;
 }
 
-function update(id,title,author,review){
-    firestore.collection('favourites').doc(id.toString()).update({
-        title:title,
-        author:author,
-        review: review
-    })
+function update(id, title, author, review) {
+    let result = 200;
+
+    try {
+        await firestore.collection('favourites').doc(id.toString()).update({
+            title: title,
+            author: author,
+            review: review
+        })
+    } catch (error) {
+        result = 409;
+    }
+
+    return result;
 }
 
 function init() {
@@ -87,6 +102,7 @@ function init() {
 
     firestore = firebase.firestore();
 }
+
 module.exports = {
     "create": create,
     "findAll": findAll,

@@ -1,23 +1,32 @@
 <h1>{{title}}</h1>
 
-<table>
+<input type="text" name="search" onkeyup='setTimeout(filterResults(event),500);'
+    placeholder="Filter Out your favourites">
+
+
+<table id="results-table">
     <thead>
         <tr>
             <th>Title</th>
             <th>Author</th>
-            <th>Edit</th>
+            <th></th>
+            <th>Remove</th>
         </tr>
     </thead>
 
+    <tbody>
+        {{#each books}}
 
-    {{#each books}}
+        <tr>
+            
+            <td style="color:red;">{{title}}</td>
+            <td> {{author}}</td>
+            <td><a href="/edit/{{id}}">Edit</a></td>
+            <td><img src="/static/assets/close.png" height="25px" width="25px" onClick="deleteBook({{id}})"></td>
+        </tr>
 
-    <tr>
-        <td style="color:red;">{{title}}</td>
-        <td>Author: {{author}}</td>
-        <td><a href="./edit/{{id}}">Edit</a></td>
-    </tr>
+        {{/each}}
 
-    {{/each}}
+    </tbody>
 
 </table>

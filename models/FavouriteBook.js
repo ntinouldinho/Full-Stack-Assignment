@@ -45,7 +45,6 @@ async function findById(id) {
 
     await docRef.get().then((doc) => {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
             data = doc.data();
         } else {
             throw Error;

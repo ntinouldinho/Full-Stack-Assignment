@@ -7,15 +7,7 @@ var firestore = null;
 
 init();
 
-class FavouriteBook {
-    constructor(id, title, author) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-    }
-}
-
-async function create(id, title, author) {
+async function create(id, title, author,isbn) {
     var result = 0;
     var book = firestore.collection('favourites').doc(id.toString());
 
@@ -27,6 +19,7 @@ async function create(id, title, author) {
                 id: id,
                 title: title,
                 author: author,
+                isbn:isbn,
                 review:''
             })
            result = 1;

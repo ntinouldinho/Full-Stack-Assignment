@@ -33,6 +33,14 @@ app.get('/', function(req, res) {
 
 })
 
+app.get('/favourites/', async function(req, res) {
+
+    const deleteBook = await favourites.findAll();
+    
+    res.status(201).send(deleteBook);
+})
+
+
 app.delete('/favourites/', async function(req, res) {
 
     const deleteBook = await favourites.deleteById(req.body.id)
@@ -41,8 +49,8 @@ app.delete('/favourites/', async function(req, res) {
 })
 
 app.post('/favourites/create', async function(req, res) {
-    console.log(req.body)
-    const create = await favourites.create(req.body.id,req.body.title,req.body.author)
+    
+    const create = await favourites.create(req.body.id,req.body.title,req.body.author,req.body.isbn)
     
     res.status(201).send(create.toString());
 })

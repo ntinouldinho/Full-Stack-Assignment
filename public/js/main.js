@@ -1,11 +1,18 @@
 var templates = {};
 
 templates.bookResult = Handlebars.compile(`
+<ul>
 {{#each work}}
-    <h1> {{titleAuth}} </h1>
-    <button type="button" onClick="addFavourite(this,{{workid}})" class="favourites-book addBook">Favourite</button>
-
+    <li style="align-content:center">
+        <img src="https://reststop.randomhouse.com/resources/titles/{{isbn}}" height="165" width="120">
+        <div>
+            <h3 isbn="{{isbn}}"> {{titleAuth}} </h3>
+            <img onClick="addFavourite(this,{{workid}})" class="favourites-book" height="50px" width="50px">
+        </div>
+        
+    </li> 
 {{/each}}
+<ul>
 `)
 
 
@@ -33,7 +40,16 @@ function updateValue() {
     fetch(get_works_api, init)
         .then(response => response.json())
         .then(obj => {
-            console.log(obj)
+            
+            //get the first available isbn 
+            obj.work.forEach(element => {
+                if (element.titles.isbn.$) {
+                    element.isbn = element.titles.isbn.$
+                } else {
+                    element.isbn =element.titles.isbn[0].$
+                }
+            });
+
             results.innerHTML = templates.bookResult(obj)
         })
         .catch(err => {
@@ -42,7 +58,7 @@ function updateValue() {
 }
 
 function addFavourite(el, id) {
-    if (el.classList.contains("addBook")) {
+    if (!el.classList.contains("deleteBook")) {
         let get_works_api = api_url + "/" + id;
         let header = new Headers();
         header.append('Accept', 'application/json');
@@ -55,10 +71,18 @@ function addFavourite(el, id) {
         fetch(get_works_api, init)
             .then(response => response.json())
             .then(obj => {
+
+                if (obj.titles.isbn.$) {
+                    obj.isbn = obj.titles.isbn.$
+                } else {
+                    obj.isbn =obj.titles.isbn[0].$
+                }
+
                 let favouriteBook = {
                     id: obj.workid,
                     title: obj.titleAuth,
-                    author: obj.authorweb
+                    author: obj.authorweb,
+                    isbn:obj.isbn
                 }
 
                 let postHeader = new Headers();
@@ -79,12 +103,12 @@ function addFavourite(el, id) {
                                 break;
                             case '1':
                                 alert("book successfuly added to favourites")
-                                el.classList.toggle("addBook");
+                                el.classList.toggle("deleteBook");
                                 el.innerHTML = "Remove"
                                 break;
                             case '2':
                                 alert("book is already in favourites")
-                                el.classList.toggle("addBook");
+                                el.classList.toggle("deleteBook");
                                 el.innerHTML = "Remove"
                                 break;
                             default:
@@ -114,7 +138,7 @@ function addFavourite(el, id) {
                 switch (response) {
                     case 'ok':
                         alert("deleted")
-                        el.classList.toggle("addBook");
+                        el.classList.toggle("deleteBook");
                         el.innerHTML = "Favourite"
                         break;
                     default:

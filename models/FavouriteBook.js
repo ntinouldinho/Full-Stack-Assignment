@@ -69,7 +69,7 @@ async function deleteById(id) {
     return result;
 }
 
-function update(id, title, author, review) {
+async function update(id, title, author, review) {
     let result = 200;
 
     try {
